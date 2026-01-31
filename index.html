@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KantinDigital | Hosting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /* CSS VARIABLES */
+        :root { 
+            --bg: #050505; --text-main: #ffffff; --text-dim: #9ca3af; 
+            --card: #0f1115; --border: #1f2937; --accent: #2563eb; --status: #10b981;
+        }
+        .light-mode { 
+            --bg: #ffffff; --text-main: #0f172a; --text-dim: #64748b; 
+            --card: #f8fafc; --border: #e2e8f0; --accent: #2563eb; --status: #10b981;
+        }
+
+        body { background-color: var(--bg); font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text-dim); transition: all 0.4s ease; scroll-behavior: smooth; overflow-x: hidden; }
+        
+        /* --- PRELOADER --- */
+        #preloader { position: fixed; inset: 0; background: #050505; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.5s; }
+        .load-box { overflow: hidden; height: 50px; }
+        .load-text { font-size: 2.5rem; font-weight: 800; text-transform: uppercase; display: block; }
+        .t-kantin { color: #fff; animation: slideDown 0.6s forwards; }
+        .t-digital { color: var(--accent); animation: slideUp 0.6s forwards; }
+        @keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+        /* --- UI COMPONENTS --- */
+        .nav-blur { background: rgba(var(--bg), 0.8); backdrop-filter: saturate(180%) blur(15px); border-bottom: 1px solid var(--border); }
+        .card-vps { background: var(--card); border: 1px solid var(--border); border-radius: 28px; transition: 0.3s ease; height: 100%; display: flex; flex-direction: column; }
+        .card-vps:hover { border-color: var(--accent); transform: translateY(-8px); box-shadow: 0 20px 40px -20px rgba(0,0,0,0.1); }
+        
+        /* PULSING STATUS INDICATOR */
+        .status-container { display: flex; align-items: center; gap: 8px; background: var(--card); padding: 6px 14px; border-radius: 99px; border: 1px solid var(--border); }
+        .status-dot { width: 8px; height: 8px; background: var(--status); border-radius: 50%; position: relative; }
+        .status-dot::after {
+            content: ""; position: absolute; inset: 0; border-radius: 50%;
+            background: var(--status); animation: pulse-ring 1.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+        }
+        @keyframes pulse-ring { 0% { transform: scale(0.5); opacity: 1; } 100% { transform: scale(2.5); opacity: 0; } }
+
+        .tab-btn { transition: 0.3s; color: var(--text-dim); border: 1px solid var(--border); font-size: 11px; font-weight: 800; }
+        .tab-btn.active { background: var(--text-main); color: var(--bg); border-color: var(--text-main); }
+        
+        .btn-wa { background: var(--accent); color: white; border-radius: 16px; font-weight: 800; transition: 0.3s; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; width: 100%; height: 52px; display: flex; align-items: center; justify-content: center; }
+        .btn-wa:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 10px 20px -10px var(--accent); }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="preloader">
+        <div class="load-box"><span class="load-text t-kantin">Kantin</span></div>
+        <div class="load-box"><span class="load-text t-digital">Digital</span></div>
+    </div>
+
+    <nav class="nav-blur fixed w-full z-50 px-6 py-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="logo.png" class="w-8 h-8 rounded-lg" onerror="this.src='https://cdn-icons-png.flaticon.com/512/6146/6146601.png'">
+                <span class="text-xl font-extrabold text-[var(--text-main)] uppercase tracking-tighter">KantinDigital <span class="font-light opacity-50">| Hosting</span></span>
+            </div>
+            
+            <div class="flex items-center gap-5">
+                <div class="hidden md:flex">
+                    <div class="status-container">
+                        <div class="status-dot"></div>
+                        <span class="text-[10px] font-bold text-[var(--text-main)] uppercase tracking-widest">Systems Active</span>
+                    </div>
+                </div>
+                <button onclick="toggleTheme()" class="w-10 h-10 rounded-full flex items-center justify-center border border-[var(--border)] text-[var(--text-main)]">
+                    <i id="theme-icon" class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-56 pb-28 px-6 text-center">
+        <h1 class="text-5xl md:text-8xl font-black text-[var(--text-main)] mb-8 tracking-tighter leading-[1.1]">Cloud Infrastructure <br> <span class="text-blue-600">Reimagined.</span></h1>
+        <p class="max-w-2xl mx-auto mb-14 text-[var(--text-dim)] text-lg leading-relaxed">Penyedia layanan server legal dengan performa tinggi dan harga yang kompetitif untuk mendukung project digital Anda.</p>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
+            <div class="p-5 rounded-3xl border border-[var(--border)] bg-[var(--card)] flex flex-col items-center">
+                <i class="fas fa-bolt text-blue-500 mb-3 text-xl"></i>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--text-main)]">Ultra Fast</span>
+            </div>
+            <div class="p-5 rounded-3xl border border-[var(--border)] bg-[var(--card)] flex flex-col items-center">
+                <i class="fas fa-shield-alt text-blue-500 mb-3 text-xl"></i>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--text-main)]">100% Legal</span>
+            </div>
+            <div class="p-5 rounded-3xl border border-[var(--border)] bg-[var(--card)] flex flex-col items-center">
+                <i class="fas fa-network-wired text-blue-500 mb-3 text-xl"></i>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--text-main)]">Low Latency</span>
+            </div>
+            <div class="p-5 rounded-3xl border border-[var(--border)] bg-[var(--card)] flex flex-col items-center">
+                <i class="fas fa-globe text-blue-500 mb-3 text-xl"></i>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--text-main)]">Global</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="py-24 px-6 max-w-6xl mx-auto border-t border-[var(--border)]">
+        <div class="text-center mb-14">
+            <h2 class="text-3xl font-black text-[var(--text-main)] uppercase tracking-tight mb-8">Especial Deals</h2>
+            <div class="flex justify-center gap-3">
+                <button class="tab-btn active px-8 py-2.5 rounded-2xl uppercase tracking-widest">Limited Offer</button>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="card-vps p-10 flex flex-col">
+                <div class="flex justify-between items-start mb-8">
+                    <span class="text-[9px] font-bold text-red-500 uppercase tracking-widest animate-pulse italic">Stok Terbatas</span>
+                    <div class="flex items-center gap-2">
+                        <span class="text-[10px] font-bold text-[var(--text-main)]">GERMANY</span>
+                        <img src="https://flagcdn.com/w20/de.png" class="w-4 opacity-70">
+                    </div>
+                </div>
+                <h3 class="text-[var(--text-main)] font-bold mb-1 uppercase text-sm tracking-widest">Promo Tier S</h3>
+                <p class="text-4xl font-black text-[var(--text-main)] mb-10">Rp 145k<span class="text-sm font-normal opacity-40">/bln</span></p>
+                <ul class="text-[11px] space-y-5 mb-12 flex-1">
+                    <li><i class="fas fa-check text-blue-500 mr-2"></i> 4 Cores AMD EPYC</li>
+                    <li><i class="fas fa-check text-blue-500 mr-2"></i> 18 GB Dedicated RAM</li>
+                    <li><i class="fas fa-check text-blue-500 mr-2"></i> 250 GB NVMe CEPH</li>
+                    <li><i class="fas fa-check text-blue-500 mr-2"></i> Anti-DDoS & SSH Root</li>
+                </ul>
+                <a href="https://wa.me/628xxx" class="btn-wa">Beli Sekarang</a>
+            </div>
+
+            <div class="card-vps p-10 flex flex-col border-blue-600/50 bg-blue-600/[0.03]">
+                <div class="flex justify-between items-start mb-8">
+                    <span class="text-[9px] font-bold text-blue-500 uppercase tracking-widest">Pilihan Utama</span>
+                    <div class="flex items-center gap-2">
+                        <span class="text-[10px] font-bold text-[var(--text-main)]">GERMANY</span>
+                        <img src="https://flagcdn.com/w20/de.png" class="w-4">
+                    </div>
+                </div>
+                <h3 class="text-[var(--text-main)] font-bold mb-1 uppercase text-sm tracking-widest">Promo Tier M</h3>
+                <p class="text-4xl font-black text-[var(--text-main)] mb-10">Rp 203k<span class="text-sm font-normal opacity-40">/bln</span></p>
+                <ul class="text-[11px] space-y-5 mb-12 flex-1">
+                    <li><i class="fas fa-check text-blue-500 mr-2"></i> 6 Cores AMD EPYC</li>
+                    <li><i class="fas fa-check text-blue-500 mr-2"></i> 26 GB Dedicated RAM</li>
+                    <li><i class="fas fa-check text-blue-500 mr-2"></i> 350 GB NVMe CEPH</li>
+                    <li><i class="fas fa-check text-blue-500 mr-2"></i> Anti-DDoS & SSH Root</li>
+                </ul>
+                <a href="https://wa.me/628xxx" class="btn-wa shadow-xl shadow-blue-900/10">Beli Sekarang</a>
+            </div>
+
+            <div class="card-vps p-10 flex flex-col">
+                <div class="flex justify-end items-start mb-8">
+                    <div class="flex items-center gap-2">
+                        <span class="text-[10px] font-bold text-[var(--text-main)]">GERMANY</span>
+                        <img src="https://flagcdn.com/w20/de.png" class="w-4 opacity-70">
+                    </div>
+                </div>
+                <h3 class="text-[var(--text-main)] font-bold mb-1 uppercase text-sm tracking-widest">Promo Tier L</h3>
+                <p class="text-4xl font-black text-[var(--text-main)] mb-10">Rp 285k<span class="text-sm font-normal opacity-40">/bln</span></p>
+                <ul class="text-[11px] space-y-5 mb-12 flex-1">
+                    <li><i class="fas fa-check text-blue-500 mr-2"></i> 8 Cores AMD EPYC</li>
+                    <li><i class="fas fa-check text-blue-500 mr-2"></i> 34 GB Dedicated RAM</li>
+                    <li><i class="fas fa-check text-blue-500 mr-2"></i> 450 GB NVMe CEPH</li>
+                    <li><i class="fas fa-check text-blue-500 mr-2"></i> Anti-DDoS & SSH Root</li>
+                </ul>
+                <a href="https://wa.me/628xxx" class="btn-wa">Beli Sekarang</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 max-w-3xl mx-auto border-t border-[var(--border)]">
+        <h3 class="text-2xl font-black text-[var(--text-main)] mb-12 text-center uppercase">FAQ</h3>
+        <div class="space-y-4">
+            <details class="group border border-[var(--border)] rounded-2xl p-6 bg-[var(--card)]">
+                <summary class="list-none font-bold text-[var(--text-main)] cursor-pointer flex justify-between items-center text-sm uppercase tracking-wide">
+                    Apakah infrastruktur ini legal?
+                    <i class="fas fa-plus group-open:rotate-45 transition text-[10px] opacity-50"></i>
+                </summary>
+                <p class="mt-4 text-xs leading-relaxed opacity-60">Ya, kami hanya menyediakan server legal 100% dengan durasi penuh sesuai masa aktif yang dibayar.</p>
+            </details>
+            <details class="group border border-[var(--border)] rounded-2xl p-6 bg-[var(--card)]">
+                <summary class="list-none font-bold text-[var(--text-main)] cursor-pointer flex justify-between items-center text-sm uppercase tracking-wide">
+                    Berapa lama proses aktivasi?
+                    <i class="fas fa-plus group-open:rotate-45 transition text-[10px] opacity-50"></i>
+                </summary>
+                <p class="mt-4 text-xs leading-relaxed opacity-60">Estimasi setup manual membutuhkan waktu 10-30 menit setelah bukti pembayaran dikonfirmasi.</p>
+            </details>
+        </div>
+    </section>
+
+    <a href="https://wa.me/628xxx" class="fixed bottom-8 right-8 bg-[#25d366] text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-2xl z-[100] transition hover:scale-110">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <footer class="py-16 text-center border-t border-[var(--border)]">
+        <p class="text-[9px] font-bold uppercase tracking-[0.5em] opacity-30">&copy; 2026 KantinDigital | Hosting</p>
+    </footer>
+
+    <script>
+        // PRELOADER
+        window.addEventListener('load', () => {
+            const p = document.getElementById('preloader');
+            setTimeout(() => { p.style.opacity = '0'; setTimeout(() => p.style.display = 'none', 500); }, 1200);
+        });
+
+        // THEME TOGGLE
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            body.classList.toggle('light-mode');
+            if (body.classList.contains('light-mode')) {
+                icon.className = 'fas fa-sun';
+            } else {
+                icon.className = 'fas fa-moon';
+            }
+        }
+    </script>
+</body>
+</html>
